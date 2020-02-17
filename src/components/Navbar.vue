@@ -14,6 +14,14 @@
       
      </v-app-bar>
      <v-navigation-drawer v-model="drawer" app class="primary"> 
+         <v-row class="text-center">
+           <v-col>
+               <v-avatar size="100">
+                   <v-img :src="require('../views/images/mops.jpg')"/>
+               </v-avatar>
+               <p class="white--text subheading mt-1">Aishize</p>
+           </v-col>
+         </v-row>
       <v-list>
           <v-list-item v-for="(link,i) in links" :key="i" router :to="link.route">
               <v-list-item-action>
@@ -37,7 +45,7 @@ export default {
             drawer: false,
             links: [
                 {icon: 'mdi-view-dashboard-outline', text: 'Dashboard', route: '/'},
-                {icon: 'mdi-folder-table', text: 'My projects', route: '/projects'},
+                {icon: 'mdi-folder-table', text: 'Projects Info', route: '/projects'},
                 {icon: 'mdi-account-group', text: 'Team', route: '/team'}
             ]
         }

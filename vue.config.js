@@ -1,10 +1,7 @@
-const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');
-const { VuetifyProgressiveModule } = require('vuetify-loader');
-
-module.exports = {
-  "transpileDependencies": [
-    "vuetify"
-  ],
+// const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');
+// const { VuetifyProgressiveModule } = require('vuetify-loader');
+/*
+,
   chainWebpack:  config => {
     config.resolve.alias
       .set('vuetify/lib', 'vuetify/es5/components');
@@ -38,4 +35,10 @@ module.exports = {
         .oneOf('imagesOther')
           .merge({ loader: 'url-loader', options: { limit: 8000 } });
   },
+
+*/
+module.exports = {
+  "transpileDependencies": [
+    "vuetify"
+  ]
 };
