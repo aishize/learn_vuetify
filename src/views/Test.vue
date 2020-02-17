@@ -2,7 +2,7 @@
   <v-container class="my-5 col-lg-8 col-md-6 col-sm-6">
     <v-row >
       <v-expansion-panels accordion>
-        <v-expansion-panel v-for="project in myProjects" :key="project.title">
+        <v-expansion-panel v-for="project in allProjects" :key="project.title">
           <v-expansion-panel-header class="subheading font-weight-bold">{{project.title}}</v-expansion-panel-header>
           <v-expansion-panel-content>
             <div>
@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 export default {
   computed: mapGetters(["allProjects"])
 };

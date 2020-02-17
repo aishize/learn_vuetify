@@ -46,7 +46,8 @@ export default {
             links: [
                 {icon: 'mdi-view-dashboard-outline', text: 'Dashboard', route: '/'},
                 {icon: 'mdi-folder-table', text: 'Projects Info', route: '/projects'},
-                {icon: 'mdi-account-group', text: 'Team', route: '/team'}
+                {icon: 'mdi-account-group', text: 'Team', route: '/team'},
+                {icon: 'mdi-settings', text: 'Test', route: '/test'}
             ]
         }
     }
