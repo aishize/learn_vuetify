@@ -1,18 +1,18 @@
 <template>
   <v-container class="my-5">
-    <v-row>
-      <v-col xs="12" sm="6" md="4" lg="4" v-for="person in allTeam" :key="person.name">
-        <v-card class="text-center ma-3">
+    <v-row  no-gutters>
+      <v-col xs="12" sm="4" md="4" lg="3" v-for="person in allTeam" :key="person.name">
+        <v-card class="text-center ma-3" max-width="300">
           <v-responsive class="pt-4">
             <v-avatar size="100">
               <v-img :src="require(`@/assets/${person.avatar}`)" :alt="person.avatar" />
             </v-avatar>
           </v-responsive>
           <v-card-text>
-            <div class="subheading">{{ person.name }}</div>
+            <div class="subheading font-weight-bold">{{ person.name }}</div>
             <div class="grey--text">{{person.role}}</div>
           </v-card-text>
-          <v-card-actions>
+          <v-card-actions> 
             <v-btn text color="grey">
               <v-icon small left>mdi-message</v-icon>
               <span>message</span>
