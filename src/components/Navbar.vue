@@ -17,7 +17,7 @@
          <v-row class="text-center">
            <v-col>
                <v-avatar size="100">
-                   <v-img :src="require('../views/images/mops.jpg')"/>
+                   <v-img :src="require('../assets/mops.jpg')"/>
                </v-avatar>
                <p class="white--text subheading mt-1">Aishize</p>
            </v-col>

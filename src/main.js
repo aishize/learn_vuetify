@@ -6,6 +6,8 @@ import vuetify from './plugins/vuetify';
 
 Vue.config.productionTip = false
 
+// API_key 1UoNSDisFnoKkem4KNlW
+
 new Vue({
   router,
   store,
