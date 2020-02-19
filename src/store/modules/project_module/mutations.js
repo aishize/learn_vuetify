@@ -4,5 +4,8 @@ export default {
     },
     deleteProject: (state, projectIndex) => {
         state.projects.splice(projectIndex,1)
+    },
+    changeStatus: (state, data) => {
+        state.projects[data.index].status = data.status
     }
 }

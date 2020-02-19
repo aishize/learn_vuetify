@@ -44,6 +44,7 @@
               close
               close-icon="mdi-delete"
               @click:close="deleteHandler(i)"
+              @click="statusHandler(i)"
             >
               <v-avatar left>
                 <v-icon small>mdi-source-fork</v-icon>
@@ -77,12 +78,13 @@ export default {
         complete: "#3cd1c2",
         ongoing: "orange",
         overdue: "#FF6347"
-      }
+      },
+      statuses: ['ongoing','complete','overdue']
     };
   },
   computed: mapGetters(["allProjects"]),
   methods: {
-    ...mapActions(["deleteProject"]),
+    ...mapActions(["deleteProject","changeStatus"]),
     sortBy(prop) {
       this.allProjects.sort((a, b) =>
         a[prop].toLowerCase() < b[prop].toLowerCase() ? -1 : 1
@@ -91,6 +93,18 @@ export default {
     deleteHandler(index) {
       let choice = confirm("delete this project?");
       choice ? this.deleteProject(index) : null;
+    },
+    statusHandler(index){
+      let validStatuses = this.statuses.filter(status => status !== this.allProjects[index].status)
+      let moveStatus = this.statuses.shift()
+      this.statuses.push(moveStatus)
+     
+      console.log(validStatuses[0])
+      let data = {
+        index,
+        status: validStatuses[0]
+      }
+      this.changeStatus(data)
     }
   }
 };

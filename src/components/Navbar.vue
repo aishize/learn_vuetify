@@ -17,7 +17,7 @@
          <v-row class="text-center">
            <v-col>
                <v-avatar size="100">
-                   <v-img :src="require('../assets/mops.jpg')"/>
+                   <v-img :src="require(`../assets/avatars/${Math.floor(Math.random()*6)}.jpg`)"/>
                </v-avatar>
                <p class="white--text subheading mt-1">Aishize</p>
            </v-col>
@@ -47,7 +47,8 @@ export default {
                 {icon: 'mdi-view-dashboard-outline', text: 'Dashboard', route: '/dashboard'},
                 {icon: 'mdi-folder-table', text: 'Projects Info', route: '/'},
                 {icon: 'mdi-account-group', text: 'Team', route: '/team'},
-                {icon: 'mdi-settings', text: 'Test', route: '/test'}
+                {icon: 'mdi-settings', text: 'Test', route: '/test'},
+                {icon: 'mdi-database', text: 'Firebase', route: '/testwo'}
             ]
         }
     }
