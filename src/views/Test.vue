@@ -5,13 +5,12 @@
         <h1>TEST PAGE</h1>
       </v-col>
       <v-col>
-       <h3>yeah, it was was created to test every</h3>
+        <h3>yeah, it was was created to test every</h3>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-export default {
-}
+export default {};
 </script>

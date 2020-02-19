@@ -7,5 +7,8 @@ export default {
             status: data.status,
             content: data.content       
         })
+    },
+    deleteProject({commit},projectIndex){
+        commit('deleteProject',projectIndex)
     }
 }
