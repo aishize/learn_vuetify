@@ -4,12 +4,13 @@
     <v-container class="my-5 col-lg-8 col-md-6 col-sm-6">
       <v-row justify="center">
       <v-row>
-        <v-col cols="8" sm="4">
+        <v-col cols="12" sm="8" md="8">
          <v-select
           v-model="selectPersons"
-          :items="persons"
+          :items="showPersons"
           label="Select"
           multiple
+          solo
           chips
           hint="Whose projects do you want to see?"
           persistent-hint
@@ -41,14 +42,11 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['allProjects']),
+    ...mapGetters(['showPersons','allProjects']),
     myProjects(){
       return this.allProjects.filter(project => {
            return this.selectPersons.includes(project.person)
       })
-     },
-     persons(){
-       return this.allProjects.map(project => project.person)
      }
   }
 }
