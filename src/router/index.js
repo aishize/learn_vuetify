@@ -14,7 +14,7 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/dashboard',
-    name: 'dashboard',
+    name: '',
     component: Dashboard,
     children: [
       {path: '', component: showDashboard},
@@ -28,7 +28,7 @@ const routes = [
   },
   {
     path: '/team',
-    name: 'team',
+    name: '',
     component: Team,
     children: [
        {path: '', component: showTeam},

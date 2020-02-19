@@ -14,7 +14,7 @@
           required
         ></v-checkbox>
 
-        <v-btn :disabled="!valid" color="success" class="mr-4" @click="createPerson(user)">Create</v-btn>
+        <v-btn :disabled="!valid" color="success" class="mr-4" @click="pushAndRedirect">Create</v-btn>
 
         <v-btn color="warning" class="mr-4" @click="reset">Reset</v-btn>
 
@@ -51,6 +51,10 @@ export default {
     ...mapActions(['createPerson']),
     reset() {
       this.$refs.form.reset();
+    },
+    pushAndRedirect(){
+      this.createPerson(this.user)
+      this.$router.push('/team')
     }
   }
 };

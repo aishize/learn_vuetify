@@ -47,7 +47,7 @@
 
           <v-row>
             <v-col cols="4">
-              <v-btn :disabled="!valid" @click="createProject(project)" color="success" class="mr-4">add</v-btn>
+              <v-btn :disabled="!valid" @click="pushAndRedirect" color="success" class="mr-4">add</v-btn>
             </v-col>
             <v-col cols="4">
               <v-btn color="warning" class="mr-4" @click="reset">reset</v-btn>
@@ -87,8 +87,9 @@ export default {
     reset() {
       this.$refs.form.reset();
     },
-    showMe() {
-      console.log(JSON.stringify(this.project));
+    pushAndRedirect(){
+        this.createProject(this.project)
+        this.$router.push('/dashboard')
     }
   }
 };

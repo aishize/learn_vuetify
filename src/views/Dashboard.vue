@@ -6,12 +6,7 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
-import showDashboard from '../components/showDashboard'
 export default {
-  components: {
-    showDashboard
-  }
 };
 </script>
 <style scoped>
