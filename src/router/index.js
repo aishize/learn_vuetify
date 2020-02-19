@@ -6,17 +6,23 @@ import Team from '../views/Team'
 import Test from '../views/Test'
 import newPerson from '../components/newPerson'
 import showTeam from '../components/showTeam'
+import showDashboard from '../components/showDashboard'
+import newProject from '../components/newProject'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
+    path: '/dashboard',
     name: 'dashboard',
-    component: Dashboard
+    component: Dashboard,
+    children: [
+      {path: '', component: showDashboard},
+      {path: 'newproject', component: newProject}
+    ]
   },
   {
-    path: '/projects',
+    path: '/',
     name: 'projects',
     component: Projects
   },

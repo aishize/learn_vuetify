@@ -55,7 +55,7 @@
           <v-col>
               <v-tooltip top>
                   <template #activator="{on}">
-                      <v-btn fab color="red" class="addProject" v-on="on">
+                      <v-btn fab color="red" class="addProject" v-on="on" :to="'/dashboard/newproject'">
                     <v-icon class="white--text">mdi-pencil</v-icon>
                   </v-btn>
                   </template>
