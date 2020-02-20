@@ -70,6 +70,8 @@
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
+import Swal from 'sweetalert2'
+
 export default {
   data() {
     return {

@@ -10,6 +10,7 @@
     "axios": "^0.19.2",
     "core-js": "^3.6.4",
     "firebase": "^7.8.2",
+    "sweetalert2": "^9.7.2",
     "vue": "^2.6.11",
     "vue-router": "^3.1.5",
     "vuefire": "^2.2.0-alpha.0",
