@@ -8,7 +8,7 @@ import newPerson from '../components/newPerson'
 import showTeam from '../components/showTeam'
 import showDashboard from '../components/showDashboard'
 import newProject from '../components/newProject'
-import TestTwo from '../views/TestTwo'
+import TestFirebase from '../views/TestFirebase'
 
 Vue.use(VueRouter)
 
@@ -44,7 +44,7 @@ const routes = [
   {
     path: '/testwo',
     name: 'testwo',
-    component: TestTwo
+    component: TestFirebase
   }
 ]
 

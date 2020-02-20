@@ -33,7 +33,7 @@ export default {
       user: {
           name: "",
           role: "",
-          avatar: 'account.png'
+          avatar: `avatars/${Math.floor(Math.random()*6)}.jpg`
       },
       valid: true,
       nameRules: [

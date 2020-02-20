@@ -10,5 +10,8 @@ export default {
     },
     deleteProject({commit},projectIndex){
         commit('deleteProject',projectIndex)
+    },
+    changeStatus({commit},data){
+         commit('changeStatus',data)
     }
 }
