@@ -17,7 +17,7 @@
          <v-row class="text-center">
            <v-col>
                <v-avatar size="100">
-                   <v-img :src="require(`../assets/avatars/${Math.floor(Math.random()*6)}.jpg`)"/>
+                   <v-img :src="require(`../assets/avatars/0.jpg`)"/>
                </v-avatar>
                <p class="white--text subheading mt-1">Aishize</p>
            </v-col>

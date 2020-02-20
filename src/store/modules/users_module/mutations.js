@@ -1,5 +1,5 @@
 export default {
     createPerson: (state, data) => {
-        state.team.push(data)
+        state.team = [...state.team, data]
     }
 }

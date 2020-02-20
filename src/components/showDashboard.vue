@@ -71,7 +71,6 @@
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
-import Swal from 'sweetalert2'
 
 export default {
   data() {
@@ -100,8 +99,6 @@ export default {
       let validStatuses = this.statuses.filter(status => status !== this.allProjects[index].status)
       let moveStatus = this.statuses.shift()
       this.statuses.push(moveStatus)
-     
-      console.log(validStatuses[0])
       let data = {
         index,
         status: validStatuses[0]

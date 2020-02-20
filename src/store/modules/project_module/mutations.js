@@ -1,11 +1,16 @@
 export default {
     createProject: (state, data) => {
-        state.projects.unshift(data)
+        state.projects = [data, ...state.projects]
     },
     deleteProject: (state, projectIndex) => {
-        state.projects.splice(projectIndex,1)
+        state.projects = state.projects.filter((item,index) => index != projectIndex)
     },
     changeStatus: (state, data) => {
-        state.projects[data.index].status = data.status
+        state.projects = state.projects.map((item, index) => {
+            if (index == data.index) {
+                item.status = data.status
+            }
+            return item
+        })
     }
 }
