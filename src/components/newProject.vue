@@ -7,9 +7,10 @@
             <v-col class="d-flex justify-center" cols="12" sm="12" md="7" lg="7">
               <v-select
                 label="choose your fighter"
-                :items="showMembers"
+                :items="showMembers.map(item => Object.values(item).toString())"
                 solo
                 v-model="project.person"
+                @change="setUserId"
               ></v-select>
             </v-col>
             <v-spacer></v-spacer>
@@ -85,7 +86,9 @@ export default {
   data() {
     return {
       menu: false,
+      userId: null,
       project: {
+        id: '',
         person: "",
         title: "",
         content: "",
@@ -101,12 +104,18 @@ export default {
   },
   computed: mapGetters(["showMembers"]),
   methods: {
+    setUserId(){
+     console.log(this.project.person)
+      let id = this.showMembers.filter(item => Object.values(item).toString() == this.project.person)
+      this.userId = Object.keys(id[0])[0]
+      console.log(this.userId)
+    },
     ...mapActions(["createProject"]),
     reset() {
       this.$refs.form.reset();
     },
     pushAndRedirect() {
-      this.createProject(this.project);
+      this.createProject({data: this.project, userId: this.userId});
       this.$router.push("/dashboard");
     }
   }

@@ -21,7 +21,8 @@
       </v-tooltip>
     </v-row>
 
-    <v-card flat class="grey lighten-4 ma-5" v-for="(project,i) in allProjects" :key="i">
+    <!-- <div v-for="(projects,i) in allProjectsTest" :key="i"> -->
+      <v-card flat class="grey lighten-4 ma-5" v-for="(project,j) in allProjectsTest" :key="j">
       <v-row :class="`pa-3 project ${project.status}`">
         <v-col xs="12" md="5">
           <div class="caption grey--text">Title</div>
@@ -55,6 +56,7 @@
         </v-col>
       </v-row>
     </v-card>
+    <!-- </div> -->
     <v-row>
       <v-col>
         <v-tooltip top>
@@ -75,7 +77,7 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   data() {
     return {
-      chipsColors: {
+      chipsColors: { 
         complete: "#3cd1c2",
         ongoing: "orange",
         overdue: "#FF6347"
@@ -83,13 +85,16 @@ export default {
       statuses: ['ongoing','complete','overdue']
     };
   },
-  computed: mapGetters(["allProjects"]),
+  computed: mapGetters(["allProjects",'allProjectsTest']),
   methods: {
     ...mapActions(["deleteProject","changeStatus"]),
     sortBy(prop) {
-      this.allProjects.sort((a, b) =>
-        a[prop].toLowerCase() < b[prop].toLowerCase() ? -1 : 1
-      );
+      // НЕ РАБОТАЕТ СОРТИРОВКА 
+      console.log( this.allProjectsTest)
+     this.allProjectsTest.sort((a,b) => {
+       console.log(a,' : ',b)
+        a.toLowerCase() < b.toLowerCase() ? -1 : 1
+      })
     },
     deleteHandler(index) {
       let choice = confirm("delete this project?");
@@ -104,6 +109,7 @@ export default {
         status: validStatuses[0]
       }
       this.changeStatus(data)
+      
     }
   }
 };

@@ -1,7 +1,7 @@
 <template>
   <v-container class="my-5">
     <v-row  no-gutters>
-      <v-col xs="12" sm="4" md="4" lg="3" v-for="person in allTeam" :key="person.name">
+      <v-col xs="12" sm="4" md="4" lg="3" v-for="person in allTeam" :key="person.id">
         <v-card class="text-center ma-3" max-width="300">
           <v-responsive class="pt-4">
             <v-avatar size="100">

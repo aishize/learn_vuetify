@@ -1,8 +1,7 @@
 <template>
-  <v-container class="my-5">
-    <h2 class="offset-2 grey--text lighten-2">new Person</h2>
-    <v-row align="center" class="offset-3 col-lg-8">
-      <v-form ref="form" v-model="valid">
+  <v-container>
+    <v-row  class="d-flex justify-center ">
+      <v-form ref="form" v-model="valid" class="grey lighten-4 pa-10">
         <v-text-field v-model="user.name" :counter="10" :rules="nameRules" label="Name" required></v-text-field>
 
         <v-text-field v-model="user.role" :rules="roleRules" label="Role" required></v-text-field>
@@ -65,6 +64,7 @@ export default {
     return {
       menu: false,
       user: {
+        id: '',
         name: "",
         role: "",
         avatar: "account.png"
@@ -84,8 +84,8 @@ export default {
     reset() {
       this.$refs.form.reset();
     },
-    pushAndRedirect() {
-      this.createPerson(this.user);
+    async pushAndRedirect() {
+      await this.createPerson(this.user);
       this.$router.push("/team");
     },
     chooseAvatar(index) {
