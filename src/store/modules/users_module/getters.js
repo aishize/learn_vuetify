@@ -9,18 +9,21 @@ export default {
             
             arr.push({[person]: state.team[person].name})
         }
-        console.log(arr)
         return arr
     },
     allProjectsTest: (state) => {
         let arr = []
+        
         for (let person in state.team){
             if (state.team[person].hasOwnProperty('projects')){
                 arr.push(state.team[person])
             }
         }
-       return arr = arr.flatMap(item => Object.entries(item.projects))
-                       .flatMap(item => item.filter((el,ind) => ind == 1))
+       return arr.flatMap(item => Object.entries(item.projects))
+                 .flatMap(item => item.filter((el,ind) => ind == 1))
 
+    },
+    getProjectsBoot: state => {
+        return state.projects
     }
 }

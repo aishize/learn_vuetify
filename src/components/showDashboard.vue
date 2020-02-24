@@ -20,43 +20,45 @@
         <span>sort by Person</span>
       </v-tooltip>
     </v-row>
-
-    <!-- <div v-for="(projects,i) in allProjectsTest" :key="i"> -->
-      <v-card flat class="grey lighten-4 ma-5" v-for="(project,j) in allProjectsTest" :key="j">
-      <v-row :class="`pa-3 project ${project.status}`">
-        <v-col xs="12" md="5">
-          <div class="caption grey--text">Title</div>
-          <div>{{project.title}}</div>
-        </v-col>
-        <v-col xs="6" sm="4" md="2">
-          <div class="caption grey--text">Person</div>
-          <div>{{project.person}}</div>
-        </v-col>
-        <v-col xs="6" sm="4" md="2">
-          <div class="caption grey--text">Due By</div>
-          <div>{{project.due}}</div>
-        </v-col>
-        <v-col xs="6" sm="4" md="3">
-          <div style="display: flex; justify-content: flex-end">
-            <v-chip
-              small
-              :color="`${chipsColors[project.status]}`"
-              class="my-2 white--text caption"
-              close
-              close-icon="mdi-delete"
-              @click:close="deleteHandler(i)"
-              @click="statusHandler(i)"
-            >
-              <v-avatar left>
-                <v-icon small>mdi-source-fork</v-icon>
-              </v-avatar>
-              {{ project.status }}
-            </v-chip>
-          </div>
-        </v-col>
-      </v-row>
-    </v-card>
-    <!-- </div> -->
+    <!-- <div v-if="loading">
+      <h3>...loading</h3>
+    </div> -->
+    <div>
+      <v-card flat class="grey lighten-4 ma-5" v-for="(project,index) in getProjectsBoot" :key="index">
+        <v-row :class="`pa-3 project ${project.status}`">
+          <v-col xs="12" md="5">
+            <div class="caption grey--text">Title</div>
+            <div>{{project.title}}</div>
+          </v-col>
+          <v-col xs="6" sm="4" md="2">
+            <div class="caption grey--text">Person</div>
+            <div>{{project.person}}</div>
+          </v-col>
+          <v-col xs="6" sm="4" md="2">
+            <div class="caption grey--text">Due By</div>
+            <div>{{project.due}}</div>
+          </v-col>
+          <v-col xs="6" sm="4" md="3">
+            <div style="display: flex; justify-content: flex-end">
+              <v-chip
+                small
+                :color="`${chipsColors[project.status]}`"
+                class="my-2 white--text caption"
+                close
+                close-icon="mdi-delete"
+                @click:close="deleteHandler({id: project.id, userID: project.ownerID})"
+                @click="statusHandler({id: project.id, userID: project.ownerID,index})"
+              >
+                <v-avatar left>
+                  <v-icon small>mdi-source-fork</v-icon>
+                </v-avatar>
+                {{ project.status }}
+              </v-chip>
+            </div>
+          </v-col>
+        </v-row>
+      </v-card>
+    </div>
     <v-row>
       <v-col>
         <v-tooltip top>
@@ -77,39 +79,42 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   data() {
     return {
-      chipsColors: { 
+      chipsColors: {
         complete: "#3cd1c2",
         ongoing: "orange",
         overdue: "#FF6347"
       },
-      statuses: ['ongoing','complete','overdue']
+      statuses: ["ongoing", "complete", "overdue"],
+      loading: true
     };
   },
-  computed: mapGetters(["allProjects",'allProjectsTest']),
+  computed: {
+    ...mapGetters(['getProjectsBoot'])
+  },
   methods: {
-    ...mapActions(["deleteProject","changeStatus"]),
+    ...mapActions(["deleteProject", "changeStatus"]),
     sortBy(prop) {
-      // НЕ РАБОТАЕТ СОРТИРОВКА 
-      console.log( this.allProjectsTest)
-     this.allProjectsTest.sort((a,b) => {
-       console.log(a,' : ',b)
-        a.toLowerCase() < b.toLowerCase() ? -1 : 1
-      })
+       this.getProjectsBoot.sort((a, b) => {
+        return a[prop] < b[prop] ? -1 : 1;
+      });
     },
-    deleteHandler(index) {
+    deleteHandler(payload) {
       let choice = confirm("delete this project?");
-      choice ? this.deleteProject(index) : null;
-    },
-    statusHandler(index){
-      let validStatuses = this.statuses.filter(status => status !== this.allProjects[index].status)
-      let moveStatus = this.statuses.shift()
-      this.statuses.push(moveStatus)
-      let data = {
-        index,
-        status: validStatuses[0]
-      }
-      this.changeStatus(data)
+      choice ? this.deleteProject(payload) : null;
       
+    },
+    statusHandler(data) {
+      let validStatuses = this.statuses.filter(
+        status => status !== this.getProjectsBoot[data.index].status
+      );
+      let moveStatus = this.statuses.shift();
+      this.statuses.push(moveStatus);
+      let payload = {
+        id: data.id,
+        userID: data.userID,
+        status: validStatuses[0]
+      };
+      this.changeStatus(payload);
     }
   }
 };

@@ -7,18 +7,19 @@
         <v-col cols="12" sm="8" md="8">
          <v-select
           v-model="selectPersons"
-          :items="showPersons"
+          :items="getProjectsBoot.map(item => item.person)"
           label="Select"
           multiple
           solo
           chips
           hint="Whose projects do you want to see?"
           persistent-hint
+          
         ></v-select>
       </v-col>
       </v-row>
       <v-expansion-panels accordion>
-        <v-expansion-panel v-for="project in myProjects" :key="project.title">
+        <v-expansion-panel v-for="project in getProjectsBoot.filter(item => selectPersons.includes(item.person))" :key="project.title">
           <v-expansion-panel-header class="subheading font-weight-bold ">{{project.title}}</v-expansion-panel-header>
           <v-expansion-panel-content>
             <div >due by <b>{{project.due}}</b></div>
@@ -34,7 +35,7 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import {mapGetters,mapActions} from 'vuex'
 export default {
     data() {
      return {
@@ -42,12 +43,18 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['showPersons','allProjects']),
-    myProjects(){
-      return this.allProjects.filter(project => {
-           return this.selectPersons.includes(project.person)
-      })
-     }
+    ...mapGetters(['getProjectsBoot']),
+    // myProjects(){
+    //   return this.allProjectsTest.filter(project => {
+    //        return this.selectPersons.includes(project.person)
+    //   })
+    //  }
+  },
+  methods: {
+  ...mapActions(['filteredByPerson'])
+  },
+  mounted(){
+    
   }
 }
 </script>

@@ -10,6 +10,7 @@
                 :items="showMembers.map(item => Object.values(item).toString())"
                 solo
                 v-model="project.person"
+                :rules="personRules"
                 @change="setUserId"
               ></v-select>
             </v-col>
@@ -86,9 +87,8 @@ export default {
   data() {
     return {
       menu: false,
-      userId: null,
       project: {
-        id: '',
+        ownerID: '',
         person: "",
         title: "",
         content: "",
@@ -97,6 +97,7 @@ export default {
       },
       statuses: ["ongoing", "overdue", "complete"],
       valid: true,
+      personRules: [v => !!v || "Fighter is required"],
       titleRules: [v => !!v || "Title is required"],
       infoRules: [v => !!v || "Project info is required"],
       checkbox: false
@@ -105,17 +106,15 @@ export default {
   computed: mapGetters(["showMembers"]),
   methods: {
     setUserId(){
-     console.log(this.project.person)
       let id = this.showMembers.filter(item => Object.values(item).toString() == this.project.person)
-      this.userId = Object.keys(id[0])[0]
-      console.log(this.userId)
+      this.project.ownerID = Object.keys(id[0])[0]
     },
     ...mapActions(["createProject"]),
     reset() {
       this.$refs.form.reset();
     },
     pushAndRedirect() {
-      this.createProject({data: this.project, userId: this.userId});
+      this.createProject({data: this.project, userID: this.project.ownerID});
       this.$router.push("/dashboard");
     }
   }

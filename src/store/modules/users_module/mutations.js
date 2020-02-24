@@ -4,6 +4,10 @@ export default {
     // },
     primaryBoot: (state,data) => {
         state.team = {...data}
-        console.log(state.team)
+        // console.log('mutations: ',state.team)
+    },
+    projectsBoot : (state,payload) => {
+        state.projects = payload
+        // console.log('state projects: ', state.projects)
     }
 }
