@@ -1,9 +1,15 @@
 import axios from 'axios'
 
-const baseURL = 'https://jsonplaceholder.typicode.com'
+const jsonplaceholder = 'https://jsonplaceholder.typicode.com'
 
-const instance = axios.create({
-    baseURL
+const getWeather = 'https://api.openweathermap.org/data/2.5'
+
+const jphInstance = axios.create({
+    baseURL: jsonplaceholder
+})
+const gwInstance = axios.create({
+    baseURL: getWeather
 })
 
-export default instance
+
+export {jphInstance, gwInstance}

@@ -8,6 +8,7 @@ import newPerson from '../components/newPerson'
 import showTeam from '../components/showTeam'
 import showDashboard from '../components/showDashboard'
 import newProject from '../components/newProject'
+import TestWeather from '../views/TestWeather'
 
 Vue.use(VueRouter)
 
@@ -39,6 +40,11 @@ const routes = [
     path: '/test',
     name: 'test',
     component: Test
+  },
+  {
+    path: '/weather',
+    name: 'weather',
+    component: TestWeather
   }
 ]
 

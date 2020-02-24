@@ -24,8 +24,8 @@
       <h3>...loading</h3>
     </div> -->
     <div>
-      <v-card flat class="grey lighten-4 ma-5" v-for="(project,index) in getProjectsBoot" :key="index">
-        <v-row :class="`pa-3 project ${project.status}`">
+      <v-card flat class="mb-5" v-for="(project,index) in getProjectsBoot" :key="index">
+        <v-row :class="`project ${project.status} grey lighten-4 py-6`">
           <v-col xs="12" md="5">
             <div class="caption grey--text">Title</div>
             <div>{{project.title}}</div>
@@ -85,6 +85,7 @@ export default {
         overdue: "#FF6347"
       },
       statuses: ["ongoing", "complete", "overdue"],
+      sortByVal: 'title',
       loading: true
     };
   },
@@ -94,8 +95,12 @@ export default {
   methods: {
     ...mapActions(["deleteProject", "changeStatus"]),
     sortBy(prop) {
+      
+      if (prop){
+        this.sortByVal = prop
+      }
        this.getProjectsBoot.sort((a, b) => {
-        return a[prop] < b[prop] ? -1 : 1;
+        return a[this.sortByVal] < b[this.sortByVal] ? -1 : 1;
       });
     },
     deleteHandler(payload) {
@@ -116,18 +121,25 @@ export default {
       };
       this.changeStatus(payload);
     }
-  }
+  },
+    watch: {
+        getProjectsBoot(prev,current){
+          if (prev !== current) {
+            this.sortBy()
+          }
+        }
+    }
 };
 </script>
-<style scoped>
-.project.complete {
-  border-left: 4px solid #3cd1c2;
+<style>
+.project.complete.grey.lighten-4 {
+  border-left: 4px solid #3cd1c2 !important;
 }
-.project.ongoing {
-  border-left: 4px solid orange;
+.project.ongoing.grey.lighten-4 {
+  border-left: 4px solid orange !important;
 }
-.project.overdue {
-  border-left: 4px solid tomato;
+.project.overdue.grey.lighten-4 {
+  border-left: 4px solid tomato !important;
 }
 
 .addProject {

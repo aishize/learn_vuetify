@@ -55,10 +55,10 @@
 </template>
 
 <script>
-import instance from "../services/instance";
+import {jphInstance} from "../services/instance";
 
 const showMe = async () => {
-  await instance.get("/users").then(res => console.log(res));
+  await jphInstance.get("/users").then(res => console.log(res));
 };
 
 export default {
@@ -74,7 +74,7 @@ export default {
   methods: {
     async getData(param) {
       if (param == "posts") {
-        await instance
+        await jphInstance
           .get(`/${param}`)
           .then(response => (this.posts = response.data))
           .catch(error => {
@@ -95,7 +95,7 @@ export default {
     },
     async getPostByUserId() {
       this.loading = true;
-      await instance
+      await jphInstance
         .get(`/posts?userId=${this.search}`)
         .then(response => (this.posts = response.data))
         .catch(error => {

@@ -16,9 +16,8 @@ export default {
   components: {
     Navbar
   },
-  mounted(){
+  created(){
     this.$store.dispatch('primaryBoot')
-    
   }
 };
 </script>
