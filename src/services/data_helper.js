@@ -50,25 +50,32 @@ const day = timestamp => {
     return new Date(timestamp).getDate()
 }
 const average = array => {
-   array.reduce((prev,current) => {
-       return {
-           temp: prev.main.temp + current.main.temp,
-           pressure: prev.main.pressure + current.main.pressue
-       }
-   },{})
+    return array.reduce((acc, cur) => (
+        acc.main.temp += cur.main.temp,
+        acc.main.feels_like += cur.main.feels_like,
+        acc.main.temp_min += cur.main.temp_min,
+        acc.main.temp_max += cur.main.temp_max,
+        acc.pressure += cur.main.pressure
+        ), {
+            'temp': 0,
+            'feels_like': 0,
+            "temp_min": 0,
+            "temp_max": 0,
+            "pressure": 0,
+        })
 }
 
 const parseList = list => {
     let truth = []
     let days = list
-            .map(item => day(item.dt_txt))
-            .reduce((unique,item) => unique.includes(item) ? unique : [...unique, item], [])
-    for (let i = 0; i< 5; i++){
+        .map(item => day(item.dt_txt))
+        .reduce((unique, item) => unique.includes(item) ? unique : [...unique, item], [])
+    for (let i = 0; i < 5; i++) {
         truth.push(
             list.filter(item => day(item.dt_txt) == days[i])
         )
     }
-    // return truth.map(item => average(item))
+    // console.log(truth.map(item => average(item)))
     return truth
 }
 
