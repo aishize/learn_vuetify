@@ -7,9 +7,9 @@ const getWeather = 'https://api.openweathermap.org/data/2.5'
 const jphInstance = axios.create({
     baseURL: jsonplaceholder
 })
-const gwInstance = axios.create({
+const weather = axios.create({
     baseURL: getWeather
 })
 
 
-export {jphInstance, gwInstance}
+export {jphInstance, weather}

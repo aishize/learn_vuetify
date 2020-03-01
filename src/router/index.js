@@ -9,6 +9,8 @@ import showTeam from '../components/showTeam'
 import showDashboard from '../components/showDashboard'
 import newProject from '../components/newProject'
 import TestWeather from '../views/TestWeather'
+// import showWeather from '../components/weather/showWeather'
+// import weatherBoot from '../components/weather/weatherBoot'
 
 Vue.use(VueRouter)
 
