@@ -28,7 +28,11 @@
           min-height="20%"
           @click="alarm"
         >
-          <v-card-title>{{day}}</v-card-title>
+          <!-- <v-card-title>{{day}}</v-card-title> -->
+          <v-list v-for="(value,key) in day.data" :key="key">
+            <v-list-title>{{key}}</v-list-title>
+            <v-list-item v-for="(i,j) in value" :key="j">{{j}}: {{i}}</v-list-item>
+          </v-list>
         </v-card>
       </div>
     </div>

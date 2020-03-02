@@ -1,5 +1,11 @@
 const API_KEY = "8025a16eff45bba3f9f1156f91bb1190"
 
+const options = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  };
+
 const windDeg = deg => {
     if (0 < deg && deg < 45) {
         return 'Северо-Восточный'
@@ -49,20 +55,46 @@ const parseJSON = weatherData => {
 const day = timestamp => {
     return new Date(timestamp).getDate()
 }
-const average = array => {
-    return array.reduce((acc, cur) => (
-        acc.main.temp += cur.main.temp,
-        acc.main.feels_like += cur.main.feels_like,
-        acc.main.temp_min += cur.main.temp_min,
-        acc.main.temp_max += cur.main.temp_max,
-        acc.pressure += cur.main.pressure
-        ), {
-            'temp': 0,
-            'feels_like': 0,
-            "temp_min": 0,
-            "temp_max": 0,
-            "pressure": 0,
+const toNormal = (object, payload) => {
+let test = {}
+    for (let i = 0; i < 5; i++) {
+        test = Object.assign(test,{ [`${payload.dates[i]}`]: {
+            temp: Math.round(object.temp[i] -273) + '°C',
+            feels_like: Math.round(object.feels_like[i] - 273) + '°C',
+            temp_min: Math.round(object.temp_min[i] - 273) + '°C',
+            temp_max: Math.round(object.temp_max[i] -273) + '°C',
+            pressure: object.pressure[i] + ' hPa',
+            sea_level: object.sea_level[i],
+            grnd_level: object.grnd_level[i],
+            humidity: object.humidity[i],
+            clouds: payload.clouds[i]
+        }})
+    }
+return test
+}
+const average = days => {
+    return {
+        temp: averageSimple(days, 'temp'),
+        feels_like: averageSimple(days, 'feels_like'),
+        temp_min: averageSimple(days, 'temp_min'),
+        temp_max: averageSimple(days, 'temp_max'),
+        pressure: averageSimple(days, 'pressure'),
+        sea_level: averageSimple(days, 'sea_level'),
+        grnd_level: averageSimple(days, 'grnd_level'),
+        humidity: averageSimple(days, 'humidity')
+    }
+}
+
+const averageSimple = (days, key)=> {
+    let avgArray = []
+    days.forEach(day => {
+        const sum = day.map(item => item.main[`${key}`]).reduce((prev, current) => {
+            return prev + current
         })
+        const avg = sum / day.length
+        avgArray = [...avgArray, avg.toFixed(2)]
+    })
+    return avgArray
 }
 
 const parseList = list => {
@@ -75,8 +107,11 @@ const parseList = list => {
             list.filter(item => day(item.dt_txt) == days[i])
         )
     }
-    // console.log(truth.map(item => average(item)))
-    return truth
+    let clouds = list.map(item => item.weather[0].description).filter((n,i) => i % 8 == 0)
+    let dates = list.map(item => new Date(item.dt_txt)).map(item => item.toLocaleString('en-US', options)).filter((n,i) => i % 8 == 0)
+    return {
+        data: toNormal(average(truth),{dates, clouds}),
+    }
 }
 
 

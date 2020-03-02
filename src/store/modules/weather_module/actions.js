@@ -43,7 +43,8 @@ export default {
                 .get(
                     `/forecast?q=${city}&appid=${API_KEY}`
                 )
-                .then(res => console.log(parseList(res.data.list)))
+                .then(res => Object.assign(parseList(res.data.list),res.data.city))
+                .then(forecast => commit('ADD_FORECAST',forecast))
         }catch(e){
             console.warn(e)
         }
