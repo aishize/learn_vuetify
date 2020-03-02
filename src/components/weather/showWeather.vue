@@ -24,7 +24,7 @@
         <v-card
           v-for="(day,n) in getForecast"
           :key="n"
-          max-width="14rem"
+          max-width="25rem"
           min-height="20%"
           @click="alarm"
         >
