@@ -16,7 +16,7 @@
             <v-tooltip top>
               <template v-slot:activator="{ on }">
                 <v-tab icon v-on="on" @click="tabAction(false)">
-                  <v-icon>mdi-map-marker-plus</v-icon>
+                  <v-icon color="red">mdi-map-marker-plus</v-icon>
                 </v-tab>
               </template>
               <span>new location</span>
@@ -62,7 +62,7 @@ export default {
     deleteCity(index) {
       this.$store.dispatch("deleteCity", index);
     },
-    tabAction(bool, index = 0) {
+    tabAction(bool, index) {
       this.currentCity = index;
       this.search = bool
     }

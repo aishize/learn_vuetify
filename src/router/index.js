@@ -9,6 +9,9 @@ import showTeam from '../components/showTeam'
 import showDashboard from '../components/showDashboard'
 import newProject from '../components/newProject'
 import TestWeather from '../views/TestWeather'
+import Welcom from '../views/Welcom'
+
+import state from '@/store/modules/auth_module/state'
 // import showWeather from '../components/weather/showWeather'
 // import weatherBoot from '../components/weather/weatherBoot'
 
@@ -22,12 +25,26 @@ const routes = [
     children: [
       {path: '', component: showDashboard},
       {path: 'newproject', component: newProject}
-    ]
+    ],
+    beforeEnter (to, from, next) {
+      if (state.idToken) {
+        next()
+      } else {
+        next('/')
+      }
+    }
   },
   {
-    path: '/',
+    path: '/projects',
     name: 'projects',
-    component: Projects
+    component: Projects,
+    beforeEnter (to, from, next) {
+      if (state.idToken) {
+        next()
+      } else {
+        next('/')
+      }
+    }
   },
   {
     path: '/team',
@@ -36,17 +53,43 @@ const routes = [
     children: [
        {path: '', component: showTeam},
        {path: 'addperson',component: newPerson }
-    ]
+    ],
+    beforeEnter (to, from, next) {
+      if (state.idToken) {
+        next()
+      } else {
+        next('/')
+      }
+    }
   },
   {
     path: '/test',
     name: 'test',
-    component: Test
+    component: Test,
+    beforeEnter (to, from, next) {
+      if (state.idToken) {
+        next()
+      } else {
+        next('/')
+      }
+    }
   },
   {
     path: '/weather',
     name: 'weather',
-    component: TestWeather
+    component: TestWeather,
+    beforeEnter (to, from, next) {
+      if (state.idToken) {
+        next()
+      } else {
+        next('/')
+      }
+    }
+  },
+  {
+    path: '/',
+    name: 'welcom',
+    component: Welcom
   }
 ]
 

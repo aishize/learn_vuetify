@@ -59,15 +59,13 @@ const toNormal = (object, payload) => {
 let test = {}
     for (let i = 0; i < 5; i++) {
         test = Object.assign(test,{ [`${payload.dates[i]}`]: {
-            temp: Math.round(object.temp[i] -273) + '°C',
-            feels_like: Math.round(object.feels_like[i] - 273) + '°C',
-            temp_min: Math.round(object.temp_min[i] - 273) + '°C',
-            temp_max: Math.round(object.temp_max[i] -273) + '°C',
-            pressure: object.pressure[i] + ' hPa',
-            sea_level: object.sea_level[i],
-            grnd_level: object.grnd_level[i],
-            humidity: object.humidity[i],
-            clouds: payload.clouds[i]
+            'температура': Math.round(object.temp[i] -273) + '°C',
+            'ощущается': Math.round(object.feels_like[i] - 273) + '°C',
+            min: Math.round(object.temp_min[i] - 273) + '°C',
+            max: Math.round(object.temp_max[i] -273) + '°C',
+            'давление': object.pressure[i] + ' hPa',
+            'влажность': object.humidity[i],
+            'облачность': payload.clouds[i]
         }})
     }
 return test
@@ -79,8 +77,6 @@ const average = days => {
         temp_min: averageSimple(days, 'temp_min'),
         temp_max: averageSimple(days, 'temp_max'),
         pressure: averageSimple(days, 'pressure'),
-        sea_level: averageSimple(days, 'sea_level'),
-        grnd_level: averageSimple(days, 'grnd_level'),
         humidity: averageSimple(days, 'humidity')
     }
 }
@@ -92,7 +88,7 @@ const averageSimple = (days, key)=> {
             return prev + current
         })
         const avg = sum / day.length
-        avgArray = [...avgArray, avg.toFixed(2)]
+        avgArray = [...avgArray, Math.round(avg)]
     })
     return avgArray
 }

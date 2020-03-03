@@ -6,15 +6,16 @@ export default {
     deleteCity: ({ commit }, payload) => {
         commit('DELETE_CITY', payload)
     },
-    addCityByName: async ({ commit }, city) => {
+    addCityByName: async ({ commit, dispatch }, city) => {
         try {
-            const weatherData = await weather
+            let weatherData = await weather
                 .get(
                     `/weather?q=${city}&appid=${API_KEY}`
                 )
                 .then(res => res.data)
             const data = parseJSON(weatherData)
             commit('ADD_CITY', data)
+            dispatch('getForecast', data['город'])
         } catch (e) {
             if (e.message = 'Request failed with status code 404'){
                 alert('такого города не существует, уточните название и повторите попытку')

@@ -5,10 +5,13 @@ import store from './store'
 import vuetify from './plugins/vuetify';
 import firebase from 'firebase/app'
 import 'firebase/database'
+import 'firebase/auth'
+import Carousel3d from 'vue-carousel-3d'
 
 Vue.config.productionTip = false
 
 // API_key 1UoNSDisFnoKkem4KNlW
+Vue.use(Carousel3d)
 
 const firebaseConfig = {
   apiKey: "AIzaSyCsk9_uqsK1pa8JpdqHHGTj6QkzwXZV3Wk",

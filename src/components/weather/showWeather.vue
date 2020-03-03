@@ -1,5 +1,4 @@
 <template>
-  <div>
     <div class="weather">
       <div>
         <v-img :aspect-ratio="4/3" src="../../assets/mountains.jpg">
@@ -10,7 +9,9 @@
                   <v-row>
                     <v-col v-for="(item,key) in getCity" :key="key" cols="6">
                       <v-list-item>
-                        <span class="black--text lighten-3"><h3>{{key}}: {{item}}</h3></span>
+                        <span class="black--text lighten-3">
+                          <h3>{{key}}: {{item}}</h3>
+                        </span>
                       </v-list-item>
                     </v-col>
                   </v-row>
@@ -20,23 +21,17 @@
           </v-row>
         </v-img>
       </div>
-      <div>
-        <v-card
-          v-for="(day,n) in getForecast"
-          :key="n"
-          max-width="25rem"
-          min-height="20%"
-          @click="alarm"
-        >
-          <!-- <v-card-title>{{day}}</v-card-title> -->
-          <v-list v-for="(value,key) in day.data" :key="key">
-            <v-list-title>{{key}}</v-list-title>
-            <v-list-item v-for="(i,j) in value" :key="j">{{j}}: {{i}}</v-list-item>
-          </v-list>
-        </v-card>
+      <div style="height: 100%; overflowY: scroll; overflowX: hidden">
+          <v-card v-for="(day, index) in getForecast.data" :key="index" class="ma-2">
+            <v-card-text><b>{{index}}</b></v-card-text>
+            <v-row>
+                <v-col v-for="(value,key) in day" :key="key" cols="6" class="my-n5">
+                  <v-card-text>{{key}}: {{value}}</v-card-text>
+                </v-col>
+            </v-row>
+          </v-card>
       </div>
     </div>
-  </div>
 </template>
 <script>
 import axios from "axios";
@@ -46,12 +41,14 @@ export default {
   },
   data() {
     return {
-      API_KEY: "8025a16eff45bba3f9f1156f91bb1190"
+      dialog: false,
     };
   },
   computed: {
     getForecast() {
-      return this.$store.getters.getForecast;
+      return this.$store.getters.getForecast.filter(
+        (city, index) => index === this.city
+      )[0];
     },
     getCity() {
       return this.$store.getters.getCities.filter(
@@ -69,6 +66,7 @@ export default {
 <style scoped>
 .weather {
   display: grid;
+  height: 500px;
   grid-template-columns: 2fr 1fr;
 }
 </style>
