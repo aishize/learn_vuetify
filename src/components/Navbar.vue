@@ -7,7 +7,7 @@
             <span>Aishize</span>
         </v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn text color="grey" v-if="auth">
+        <v-btn text color="grey" v-if="auth" @click='logout'>
             <span>Sign Out</span>
             <v-icon right>mdi-exit-to-app</v-icon>
         </v-btn>
@@ -45,7 +45,7 @@ export default {
             drawer: false,
             links: [
                 {icon: 'mdi-view-dashboard-outline', text: 'Dashboard', route: '/dashboard'},
-                {icon: 'mdi-folder-table', text: 'Projects Info', route: '/'},
+                {icon: 'mdi-folder-table', text: 'Projects Info', route: '/projects'},
                 {icon: 'mdi-account-group', text: 'Team', route: '/team'},
                 {icon: 'mdi-settings', text: 'Test', route: '/test'},
                 {icon: 'mdi-waze', text: 'Weather', route: '/weather'}
@@ -55,6 +55,11 @@ export default {
     computed: {
         auth() {
             return this.$store.getters.isAuthenticated
+        }
+    },
+    methods: {
+        logout(){
+            this.$store.dispatch('logout')
         }
     }
 }

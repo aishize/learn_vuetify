@@ -27,7 +27,7 @@ const routes = [
       {path: 'newproject', component: newProject}
     ],
     beforeEnter (to, from, next) {
-      if (state.idToken) {
+      if (state.tokenId) {
         next()
       } else {
         next('/')
@@ -39,7 +39,7 @@ const routes = [
     name: 'projects',
     component: Projects,
     beforeEnter (to, from, next) {
-      if (state.idToken) {
+      if (state.tokenId) {
         next()
       } else {
         next('/')
@@ -55,7 +55,7 @@ const routes = [
        {path: 'addperson',component: newPerson }
     ],
     beforeEnter (to, from, next) {
-      if (state.idToken) {
+      if (state.tokenId) {
         next()
       } else {
         next('/')
@@ -67,7 +67,7 @@ const routes = [
     name: 'test',
     component: Test,
     beforeEnter (to, from, next) {
-      if (state.idToken) {
+      if (state.tokenId) {
         next()
       } else {
         next('/')
@@ -79,7 +79,7 @@ const routes = [
     name: 'weather',
     component: TestWeather,
     beforeEnter (to, from, next) {
-      if (state.idToken) {
+      if (state.tokenId) {
         next()
       } else {
         next('/')
@@ -90,7 +90,8 @@ const routes = [
     path: '/',
     name: 'welcom',
     component: Welcom
-  }
+  },
+  { path: '*', redirect: '/dashboard/' }
 ]
 
 const router = new VueRouter({

@@ -15,7 +15,7 @@
           <v-row>
             <v-col></v-col>
             <v-col>
-              <v-btn color="success" @click="fetchData">sign in</v-btn>
+              <v-btn color="success" @click="login">sign in</v-btn>
             </v-col>
             <v-col>
               <v-btn color="error" @click="reset">cancel</v-btn>
@@ -37,8 +37,12 @@ export default {
         }
     },
     methods: {
-        fetchData() {
-
+        login() {
+          if(this.user.email.length&& this.user.password) {
+            this.$store.dispatch('signin',{email: this.user.email, password: this.user.password})
+          } else {
+            alert('enter email and password')
+          }
         },
         reset(){
             this.$refs.forms.reset()

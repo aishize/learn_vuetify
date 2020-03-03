@@ -1,6 +1,6 @@
 <template>
     <v-content>
-       <carousel-3d :width="500" :height="500" :inverse-scaling="1000" :space="800" :display="3">
+       <carousel-3d :width="500" :height="500" :inverse-scaling="1000" :space="800" :minSwipeDistance="10000">
            <slide :index='0'>
                <SignUp />
            </slide>

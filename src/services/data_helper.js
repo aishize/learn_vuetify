@@ -61,7 +61,7 @@ let test = {}
         test = Object.assign(test,{ [`${payload.dates[i]}`]: {
             'температура': Math.round(object.temp[i] -273) + '°C',
             'ощущается': Math.round(object.feels_like[i] - 273) + '°C',
-            min: Math.round(object.temp_min[i] - 273) + '°C',
+            min: Math.floor(object.temp_min[i] - 273) + '°C',
             max: Math.round(object.temp_max[i] -273) + '°C',
             'давление': object.pressure[i] + ' hPa',
             'влажность': object.humidity[i],
