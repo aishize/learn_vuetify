@@ -20,10 +20,8 @@
         <span>sort by Person</span>
       </v-tooltip>
     </v-row>
-    <!-- <div v-if="loading">
-      <h3>...loading</h3>
-    </div> -->
-    <div>
+  <v-progress-circular v-if="!isLoaded" :size="70" :width="7" color="purple" indeterminate></v-progress-circular>
+    <div v-else>
       <v-card flat class="mb-5" v-for="(project,index) in getProjectsBoot" :key="index">
         <v-row :class="`project ${project.status} grey lighten-4 py-6`">
           <v-col xs="12" md="5">
@@ -90,7 +88,10 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['getProjectsBoot'])
+    ...mapGetters(['getProjectsBoot']),
+    isLoaded() {
+      return this.$store.getters.isLoaded;
+    }
   },
   methods: {
     ...mapActions(["deleteProject", "changeStatus"]),
