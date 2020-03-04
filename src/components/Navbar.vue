@@ -45,7 +45,7 @@ export default {
             drawer: false,
             links: [
                 {icon: 'mdi-view-dashboard-outline', text: 'Dashboard', route: '/dashboard'},
-                {icon: 'mdi-folder-table', text: 'Projects Info', route: '/projects'},
+                {icon: 'mdi-folder-table', text: 'Projects Info', route: '/'},
                 {icon: 'mdi-account-group', text: 'Team', route: '/team'},
                 {icon: 'mdi-settings', text: 'Test', route: '/test'},
                 {icon: 'mdi-waze', text: 'Weather', route: '/weather'}

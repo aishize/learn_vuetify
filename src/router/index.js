@@ -30,19 +30,19 @@ const routes = [
       if (state.tokenId) {
         next()
       } else {
-        next('/')
+        next('/login')
       }
     }
   },
   {
-    path: '/projects',
+    path: '/',
     name: 'projects',
     component: Projects,
     beforeEnter (to, from, next) {
       if (state.tokenId) {
         next()
       } else {
-        next('/')
+        next('/login')
       }
     }
   },
@@ -58,7 +58,7 @@ const routes = [
       if (state.tokenId) {
         next()
       } else {
-        next('/')
+        next('/login')
       }
     }
   },
@@ -70,7 +70,7 @@ const routes = [
       if (state.tokenId) {
         next()
       } else {
-        next('/')
+        next('/login')
       }
     }
   },
@@ -82,14 +82,21 @@ const routes = [
       if (state.tokenId) {
         next()
       } else {
-        next('/')
+        next('/login')
       }
     }
   },
   {
-    path: '/',
+    path: '/login',
     name: 'welcom',
-    component: Welcom
+    component: Welcom,
+    beforeEnter (to, from, next) {
+      if (!state.tokenId) {
+        next()
+      } else {
+        next('/')
+      }
+    }
   },
   { path: '*', redirect: '/dashboard/' }
 ]

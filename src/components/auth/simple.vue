@@ -7,7 +7,7 @@
               gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
               height="350px"
             >
-              <v-card-title > uncle mops</v-card-title>
+              <v-card-title >mops uncle dog PRESS F</v-card-title>
             </v-img>
 
             <v-card-actions>
