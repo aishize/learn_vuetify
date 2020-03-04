@@ -1,6 +1,7 @@
 <template>
     <v-row justify="center" class='mt-5'>
         <v-col cols="10">
+            <v-form ref="form">
             <v-card :elevation="12"> 
             <v-card-title>
                 <span class="headline">Sign Up!</span>
@@ -31,9 +32,10 @@
             <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="success"  @click.prevent="signup">SignUp</v-btn>
-                <v-btn color="error"  :to="'/'">Cancel</v-btn>
+                <v-btn color="error"  @click="reset">reset</v-btn>
             </v-card-actions>
         </v-card>
+            </v-form>
         </v-col>
     </v-row>
 </template>
@@ -57,7 +59,7 @@ export default {
       ],
       passRules: [
         v => !!v || 'Password is required',
-        v => v.length >= 6 || 'Password must be more than 6 characters'
+        v => !!v && v.length >= 6 || 'Password must be more than 6 characters'
       ],
       repeatPassRules: [
         v => !!v || 'confirm password!',
@@ -74,6 +76,9 @@ export default {
         country: this.user.country
       }
       this.$store.dispatch('signup',{email: payload.email, password: payload.password})
+    },
+    reset(){
+      this.$refs.form.reset()
     }
   }
 }

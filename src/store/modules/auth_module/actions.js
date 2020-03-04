@@ -52,8 +52,12 @@ export default {
      tryAutoLogin: ({commit}) => {
          const uid = localStorage.getItem('userId')
          const token = localStorage.getItem('token')
-
-         commit('SIGN_IN',{uid, token})
+         if (uid!== null && token!==null) {
+            commit('SIGN_IN',{uid, token})
+            router.replace('/dashboard')
+         } else {
+             return null
+         }
      },
      logout: ({commit}) => {
          localStorage.removeItem('token')

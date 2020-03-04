@@ -35,7 +35,7 @@ const routes = [
     }
   },
   {
-    path: '/',
+    path: '/projects',
     name: 'projects',
     component: Projects,
     beforeEnter (to, from, next) {
@@ -87,18 +87,18 @@ const routes = [
     }
   },
   {
-    path: '/login',
-    name: 'welcom',
+    path: '/',
+    name: 'login',
     component: Welcom,
     beforeEnter (to, from, next) {
       if (!state.tokenId) {
         next()
       } else {
-        next('/')
+        next('/dashboard')
       }
     }
   },
-  { path: '*', redirect: '/dashboard/' }
+  {path: '/login', redirect: '/'}
 ]
 
 const router = new VueRouter({

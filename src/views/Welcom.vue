@@ -1,5 +1,5 @@
 <template>
-    <v-content>
+    <v-container>
        <carousel-3d :width="500" :height="500" :inverse-scaling="1000" :space="800" :minSwipeDistance="10000">
            <slide :index='0'>
                <SignUp />
@@ -11,7 +11,7 @@
                <simple />
            </slide>
        </carousel-3d>
-    </v-content>
+    </v-container>
 </template>
 <script>
 import { Carousel3d, Slide } from 'vue-carousel-3d'
