@@ -26,7 +26,14 @@ export default {
     getProjectsBoot: state => {
         return state.projects
     },
-    isLoaded: state => {
+    isLoadedProjects: state => {
         return state.projects.length !== 0
+    },
+    isLoadedTeam: state => {
+            for (let key in state.team) {
+              // если тело цикла начнет выполняться - значит в объекте есть свойства
+              return true;
+            }
+            return false;
     }
 }
