@@ -4,8 +4,7 @@ const options = {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
-  };
-
+} // опции для нормального отображения даты в forecast компоненте
 const windDeg = deg => {
     if (0 < deg && deg < 45) {
         return 'Северо-Восточный'
@@ -26,8 +25,7 @@ const windDeg = deg => {
                             return 'Западный'
                         }
                         else { return 'Северо-Западный' }
-}
-
+} // функция для преобразования значения направления ветра в соответствующее название 
 const toNormalTime = timestamp => {
     let options = {
         hour: "numeric",
@@ -35,8 +33,7 @@ const toNormalTime = timestamp => {
         second: "numeric"
     };
     return new Date(timestamp * 1000).toLocaleString("ru", options);
-};
-
+} // преобразует в привычное отображение даты по таймстемпу для showWeather компонента
 const parseJSON = weatherData => {
     return {
         'город': weatherData.name,
@@ -51,27 +48,25 @@ const parseJSON = weatherData => {
         'направление ветра': windDeg(weatherData.wind.deg),
         'облака': weatherData.weather[0].description
     };
-}
+} // парсинг json для манипуляции с данными
 const day = timestamp => {
     return new Date(timestamp).getDate()
-}
+} // для массива days в arseList
 const toNormal = (object, payload) => {
 let test = {}
     for (let i = 0; i < 5; i++) {
         test = Object.assign(test,{ [`${payload.dates[i]}`]: {
-            temp: Math.round(object.temp[i] -273) + '°C',
-            feels_like: Math.round(object.feels_like[i] - 273) + '°C',
-            temp_min: Math.round(object.temp_min[i] - 273) + '°C',
-            temp_max: Math.round(object.temp_max[i] -273) + '°C',
-            pressure: object.pressure[i] + ' hPa',
-            sea_level: object.sea_level[i],
-            grnd_level: object.grnd_level[i],
-            humidity: object.humidity[i],
-            clouds: payload.clouds[i]
+            'температура': Math.round(object.temp[i] -273) + '°C',
+            'ощущается': Math.round(object.feels_like[i] - 273) + '°C',
+            min: Math.floor(object.temp_min[i] - 273) + '°C',
+            max: Math.round(object.temp_max[i] -273) + '°C',
+            'давление': object.pressure[i] + ' hPa',
+            'влажность': object.humidity[i],
+            'облачность': payload.clouds[i]
         }})
     }
 return test
-}
+} // преобразование average в объект, где ключ: день недели, значение: показатели погоды
 const average = days => {
     return {
         temp: averageSimple(days, 'temp'),
@@ -79,12 +74,9 @@ const average = days => {
         temp_min: averageSimple(days, 'temp_min'),
         temp_max: averageSimple(days, 'temp_max'),
         pressure: averageSimple(days, 'pressure'),
-        sea_level: averageSimple(days, 'sea_level'),
-        grnd_level: averageSimple(days, 'grnd_level'),
         humidity: averageSimple(days, 'humidity')
     }
-}
-
+} // возвращает объект - ключ: нужное значение, значение: массив из 5 єлементов (дней) соответствующих ключу
 const averageSimple = (days, key)=> {
     let avgArray = []
     days.forEach(day => {
@@ -92,11 +84,10 @@ const averageSimple = (days, key)=> {
             return prev + current
         })
         const avg = sum / day.length
-        avgArray = [...avgArray, avg.toFixed(2)]
+        avgArray = [...avgArray, Math.round(avg)]
     })
     return avgArray
-}
-
+} // считает среднее для одного значения 
 const parseList = list => {
     let truth = []
     let days = list
@@ -109,10 +100,8 @@ const parseList = list => {
     }
     let clouds = list.map(item => item.weather[0].description).filter((n,i) => i % 8 == 0)
     let dates = list.map(item => new Date(item.dt_txt)).map(item => item.toLocaleString('en-US', options)).filter((n,i) => i % 8 == 0)
-    return {
-        data: toNormal(average(truth),{dates, clouds}),
-    }
-}
+    return  toNormal(average(truth),{dates, clouds})
+} // парсинг массива forecast из 40 элементов к объекту 5 дней недели
 
 
 

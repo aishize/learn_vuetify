@@ -1,23 +1,23 @@
 <template>
   <nav>
      <v-app-bar app flat>
-         <v-app-bar-nav-icon @click="drawer =!drawer" class="red--text"></v-app-bar-nav-icon>
+         <v-app-bar-nav-icon v-if="auth" @click="drawer =!drawer" class="red--text"></v-app-bar-nav-icon>
         <v-toolbar-title class="text-uppercase grey--text">
             <span class="font-weight-light">Todo</span>
             <span>Aishize</span>
         </v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn text color="grey">
+        <v-btn text color="grey" v-if="auth" @click='logout'>
             <span>Sign Out</span>
             <v-icon right>mdi-exit-to-app</v-icon>
         </v-btn>
       
      </v-app-bar>
-     <v-navigation-drawer v-model="drawer" app class="primary"> 
+     <v-navigation-drawer v-if="auth" v-model="drawer" app class="primary"> 
          <v-row class="text-center">
            <v-col>
                <v-avatar size="100">
-                   <v-img :src="require(`../assets/avatars/0.jpg`)"/>
+                   <v-img :src="require(`../assets/avatars/0.jpg`)" @click='goMyPage' style='cursor: pointer'/>
                </v-avatar>
                <p class="white--text subheading mt-1">Aishize</p>
            </v-col>
@@ -45,11 +45,24 @@ export default {
             drawer: false,
             links: [
                 {icon: 'mdi-view-dashboard-outline', text: 'Dashboard', route: '/dashboard'},
-                {icon: 'mdi-folder-table', text: 'Projects Info', route: '/'},
+                {icon: 'mdi-folder-table', text: 'Projects Info', route: '/projects'},
                 {icon: 'mdi-account-group', text: 'Team', route: '/team'},
                 {icon: 'mdi-settings', text: 'Test', route: '/test'},
                 {icon: 'mdi-waze', text: 'Weather', route: '/weather'}
             ]
+        }
+    },
+    computed: {
+        auth() {
+            return this.$store.getters.isAuthenticated
+        }
+    },
+    methods: {
+        logout(){
+            this.$store.dispatch('logout')
+        },
+        goMyPage() {
+            this.$router.push('/mypage')
         }
     }
 }

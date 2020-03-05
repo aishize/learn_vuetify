@@ -1,8 +1,16 @@
 export default {
     getCities: state => {
-        return state.myCities
+        if (state.myCities) {
+            return state.myCities
+        } else {
+            return false
+        }
     },
     getForecast: state => {
-        return state.forecast
+        if (state.forecast) {
+            return state.forecast
+        } else {
+            return false
+        }
     }
 }

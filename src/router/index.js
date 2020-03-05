@@ -9,6 +9,9 @@ import showTeam from '../components/showTeam'
 import showDashboard from '../components/showDashboard'
 import newProject from '../components/newProject'
 import TestWeather from '../views/TestWeather'
+import Welcom from '../views/Welcom'
+import MyPage from '../views/MyPage'
+import state from '@/store/modules/auth_module/state'
 // import showWeather from '../components/weather/showWeather'
 // import weatherBoot from '../components/weather/weatherBoot'
 
@@ -22,12 +25,26 @@ const routes = [
     children: [
       {path: '', component: showDashboard},
       {path: 'newproject', component: newProject}
-    ]
+    ],
+    beforeEnter (to, from, next) {
+      if (state.tokenId) {
+        next()
+      } else {
+        next('/login')
+      }
+    }
   },
   {
-    path: '/',
+    path: '/projects',
     name: 'projects',
-    component: Projects
+    component: Projects,
+    beforeEnter (to, from, next) {
+      if (state.tokenId) {
+        next()
+      } else {
+        next('/login')
+      }
+    }
   },
   {
     path: '/team',
@@ -36,18 +53,62 @@ const routes = [
     children: [
        {path: '', component: showTeam},
        {path: 'addperson',component: newPerson }
-    ]
+    ],
+    beforeEnter (to, from, next) {
+      if (state.tokenId) {
+        next()
+      } else {
+        next('/login')
+      }
+    }
   },
   {
     path: '/test',
     name: 'test',
-    component: Test
+    component: Test,
+    beforeEnter (to, from, next) {
+      if (state.tokenId) {
+        next()
+      } else {
+        next('/login')
+      }
+    }
   },
   {
     path: '/weather',
-    name: 'weather',
-    component: TestWeather
-  }
+    component: TestWeather,
+    beforeEnter (to, from, next) {
+      if (state.tokenId) {
+        next()
+      } else {
+        next('/login')
+      }
+    }
+  },
+  {
+    path: '/mypage',
+    component: MyPage,
+    beforeEnter (to, from, next) {
+      if (state.tokenId) {
+        next()
+      } else {
+        next('/login')
+      }
+    }
+  },
+  {
+    path: '/',
+    name: 'login',
+    component: Welcom,
+    beforeEnter (to, from, next) {
+      if (!state.tokenId) {
+        next()
+      } else {
+        next('/dashboard')
+      }
+    }
+  },
+  {path: '/login', redirect: '/'}
 ]
 
 const router = new VueRouter({
