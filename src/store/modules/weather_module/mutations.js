@@ -10,5 +10,11 @@ export default {
     'ADD_FORECAST': (state, forecast) => {
         state.forecast = [...state.forecast, forecast]
         console.log(state.forecast)
+    },
+    'LOAD_DATA': (state,{cities, forecast}) => {
+        console.log('cities: ', cities)
+        console.log('forecast: ', forecast)
+        state.myCities = cities
+        state.forecast = forecast
     }
 }

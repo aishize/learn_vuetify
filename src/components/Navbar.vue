@@ -17,7 +17,7 @@
          <v-row class="text-center">
            <v-col>
                <v-avatar size="100">
-                   <v-img :src="require(`../assets/avatars/0.jpg`)"/>
+                   <v-img :src="require(`../assets/avatars/0.jpg`)" @click='goMyPage' style='cursor: pointer'/>
                </v-avatar>
                <p class="white--text subheading mt-1">Aishize</p>
            </v-col>
@@ -60,6 +60,9 @@ export default {
     methods: {
         logout(){
             this.$store.dispatch('logout')
+        },
+        goMyPage() {
+            this.$router.push('/mypage')
         }
     }
 }

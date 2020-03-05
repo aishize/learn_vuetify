@@ -10,7 +10,7 @@ import showDashboard from '../components/showDashboard'
 import newProject from '../components/newProject'
 import TestWeather from '../views/TestWeather'
 import Welcom from '../views/Welcom'
-
+import MyPage from '../views/MyPage'
 import state from '@/store/modules/auth_module/state'
 // import showWeather from '../components/weather/showWeather'
 // import weatherBoot from '../components/weather/weatherBoot'
@@ -76,8 +76,18 @@ const routes = [
   },
   {
     path: '/weather',
-    name: 'weather',
     component: TestWeather,
+    beforeEnter (to, from, next) {
+      if (state.tokenId) {
+        next()
+      } else {
+        next('/login')
+      }
+    }
+  },
+  {
+    path: '/mypage',
+    component: MyPage,
     beforeEnter (to, from, next) {
       if (state.tokenId) {
         next()
